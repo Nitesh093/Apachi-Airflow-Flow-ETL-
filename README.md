@@ -1,128 +1,128 @@
-# 🚀 Apache Airflow ETL – S3 → PostgreSQL
+# Apache Airflow ETL Pipeline (S3 to PostgreSQL)
 
-A complete ETL (Extract–Transform–Load) pipeline built using **Apache Airflow**, where data is extracted from **AWS S3**, transformed using Python scripts, and loaded into **PostgreSQL**.  
-The project runs locally using **Docker Compose** and supports environment-based configuration.
-
----
-
-## ✨ Features
-
-- 📥 Extract raw data from AWS S3  
-- 🔄 Transform & clean CSV/JSON files  
-- 🗃 Load processed records into PostgreSQL  
-- ⏱ Automated scheduling with Apache Airflow DAG  
-- 🐳 Containerized using Docker Compose  
-- 🔐 Secure configuration through environment variables  
+This project implements a complete ETL (Extract–Transform–Load) pipeline using Apache Airflow.  
+The workflow extracts raw data from Amazon S3, transforms it using Python, and loads the processed output into PostgreSQL.  
+The entire setup runs locally using Docker Compose for easy development and testing.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
+```
 Apachi-Airflow-Flow-ETL/
 │
 ├── dags/
-│ ├── extract.py
-│ ├── transform.py
-│ └── load.py
+│   ├── extract.py
+│   ├── transform.py
+│   └── load.py
 │
 ├── docker-compose.yaml
 ├── requirements.txt
-├── README.md
-└── .env (not included in git)
-
-yaml
-Copy code
+└── README.md
+```
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
-Create a `.env` file in the project root and add:
+Create a `.env` file in the project root:
 
-Airflow User
+```env
+# Airflow User
 AIRFLOW_WWW_USER_USERNAME=
 AIRFLOW_WWW_USER_PASSWORD=
 
-PostgreSQL Database
+# PostgreSQL
 DB_HOST=
+DB_PORT=
 DB_USER=
 DB_PASSWORD=
 DB_NAME=
-DB_PORT=
 
-AWS S3 Credentials
+# AWS S3
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_DEFAULT_REGION=
 
-Airflow Security
+# Airflow Security Key
 AIRFLOW__WEBSERVER__SECRET_KEY=
-
-yaml
-Copy code
-
-> ⚠️ **Important:** Never upload `.env` to GitHub.  
+```
 
 ---
 
-## 🐳 Running the Project with Docker
+## Running with Docker
 
-Ensure **Docker** and **Docker Compose** are installed.
+Ensure Docker and Docker Compose are installed.
 
-### 1️⃣ Build Airflow Environment
+### 1. Build Airflow environment
+
 ```bash
 docker compose build
-2️⃣ Initialize Airflow Database
-bash
-Copy code
+```
+
+### 2. Initialize Airflow
+
+```bash
 docker compose up airflow-init
-3️⃣ Start all Airflow Services
-bash
-Copy code
+```
+
+### 3. Start services
+
+```bash
 docker compose up -d
-4️⃣ Access Airflow UI
-Visit:
-👉 http://localhost:8080
+```
 
-Login using your .env Airflow credentials.
+### 4. Access Airflow UI
 
-📌 ETL Pipeline Flow
-scss
-Copy code
-Extract (S3) → Transform (Clean/Validate) → Load (PostgreSQL)
-1. extract.py
-Downloads required files from AWS S3
+Navigate to: `http://localhost:8080`
 
-Saves them into a temporary folder
+Login using credentials defined in the `.env` file.
 
-2. transform.py
-Cleans, validates, and restructures the data
+---
 
-Performs conversions, handling nulls, formatting
+## ETL Workflow
 
-3. load.py
-Inserts transformed data into PostgreSQL
+### Extract
+- Connects to S3
+- Downloads raw files (CSV/JSON)
 
-Creates table automatically if missing
+### Transform
+- Cleans and preprocesses data
+- Handles formatting and validation
 
-🧪 Testing the ETL Pipeline
-Open Airflow UI
+### Load
+- Loads data into PostgreSQL
+- Creates table if required
 
-Search for the ETL DAG
+---
 
-Enable the DAG
+## Triggering the Pipeline
 
-Click Trigger DAG
+1. Open Airflow UI
+2. Locate the ETL DAG
+3. Enable it
+4. Trigger manually or let it run on schedule
 
-Track logs and execution from the Airflow UI.
+Task-level logs and status can be monitored in the Airflow UI.
 
-📦 Technology Stack
-Apache Airflow
+---
 
-Docker + Docker Compose
+## Technologies Used
 
-AWS S3
+- **Apache Airflow**
+- **Docker & Docker Compose**
+- **AWS S3**
+- **PostgreSQL**
+- **Python**
 
-PostgreSQL
+---
 
-Python
+## License
+
+This project is open source .
+
+---
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
