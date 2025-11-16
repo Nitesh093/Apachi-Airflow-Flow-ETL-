@@ -1,7 +1,3 @@
-# def extract():
-#     print('task is extracted')
-
-
 import boto3
 import pandas as pd
 import os
